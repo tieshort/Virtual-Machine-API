@@ -1,0 +1,22 @@
+services:
+    postgres:
+        image: "postgres:12-alpine"
+        container_name: postgres
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        ports:
+            - 5433:5432
+        environment:
+            - POSTGRES_DB=virtual_machine
+            - POSTGRES_USER=virtual_machine
+            - POSTGRES_PASSWORD=virtual_machine
+    
+    backend:
+        depends_on:
+            - postgres
+        build: .
+        container_name: backend
+
+volumes:
+    postgres_data:
+        driver: local
