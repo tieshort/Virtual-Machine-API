@@ -1,0 +1,12 @@
+{"project-location":{"0b94dbfda409460db5b182a4c13c3aaf":{"region":"ru-9","zone":"ru-9a"}},"vpc:serverCreate:configuration":{"version":"1.0","isFixed":true,"isUseLocalDisk":false,"flavorId":"4013","userData":"","server":{"cpu":4,"ram":512,"gpuName":null,"gpuCount":0,"disk":0,"volumes":[{"type":"universal","size":1024}]},"network":{"type":"floatingIp","subnet":{},"network":{},"ip":null},"source":{"id":"d4be7b8e-399c-4a54-a789-f6858988d680","name":"Ubuntu 24.04 LTS 64-bit","type":"image","imageSourceFile":"ubuntu-noble-amd64-selectel-master-product-0.1.img"},"sshKey":null,"isTagsAutocomplete":true},"vpc:volumeCreate:configuration":{"imageSourceFile":false}}
+
+
+
+
+"{\"project-location\":{\"0b94dbfda409460db5b182a4c13c3aaf\":{\"region\":\"ru-9\",\"zone\":\"ru-9a\"}},\"vpc:serverCreate:configuration\":{\"version\":\"1.0\",\"isFixed\":false,\"isUseLocalDisk\":false,\"flavorId\":\"1016\",\"userData\":\"\",\"server\":{\"cpu\":5,\"ram\":3072,\"gpuName\":\"GTX1080\",\"gpuCount\":4,\"disk\":0,\"volumes\":[{\"type\":\"universal\",\"size\":1024}]},\"network\":{\"type\":\"floatingIp\",\"subnet\":{},\"network\":{},\"ip\":null},\"source\":{\"id\":\"d4be7b8e-399c-4a54-a789-f6858988d680\",\"name\":\"Ubuntu 24.04 LTS 64-bit\",\"type\":\"image\",\"imageSourceFile\":\"ubuntu-noble-amd64-selectel-master-product-0.1.img\"},\"sshKey\":null,\"isTagsAutocomplete\":true},\"vpc:volumeCreate:configuration\":{\"imageSourceFile\":false}}"
+
+
+{,…}
+settings
+: 
+"{\"project-location\":{\"0b94dbfda409460db5b182a4c13c3aaf\":{\"region\":\"ru-9\",\"zone\":\"ru-9a\"}},\"vpc:serverCreate:configuration\":{\"version\":\"1.0\",\"isFixed\":false,\"isUseLocalDisk\":false,\"flavorId\":\"1016\",\"userData\":\"\",\"server\":{\"cpu\":5,\"ram\":1024,\"gpuName\":\"GTX1080\",\"gpuCount\":4,\"disk\":0,\"volumes\":[{\"type\":\"universal\",\"size\":1024}]},\"network\":{\"type\":\"floatingIp\",\"subnet\":{},\"network\":{},\"ip\":null},\"source\":{\"id\":\"d4be7b8e-399c-4a54-a789-f6858988d680\",\"name\":\"Ubuntu 24.04 LTS 64-bit\",\"type\":\"image\",\"imageSourceFile\":\"ubuntu-noble-amd64-selectel-master-product-0.1.img\"},\"sshKey\":null,\"isTagsAutocomplete\":true},\"vpc:volumeCreate:configuration\":{\"imageSourceFile\":false}}"
