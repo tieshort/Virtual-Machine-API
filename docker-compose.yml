@@ -6,16 +6,16 @@ services:
             - postgres_data:/var/lib/postgresql/data/
         ports:
             - 5433:5432
-        environment:
-            - POSTGRES_DB=virtual_machine
-            - POSTGRES_USER=virtual_machine
-            - POSTGRES_PASSWORD=virtual_machine
-    
+        env_file:
+            - "postgres.env"
+
     backend:
         depends_on:
             - postgres
+
+        image: backend:latest
         build: .
-        container_name: backend
+        container_name: python
 
 volumes:
     postgres_data:
