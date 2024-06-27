@@ -1,0 +1,22 @@
+services:
+    postgres:
+        image: "postgres:12-alpine"
+        container_name: postgres
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        ports:
+            - 5433:5432
+        env_file:
+            - "postgres.env"
+
+    backend:
+        depends_on:
+            - postgres
+
+        image: backend:latest
+        build: .
+        container_name: python
+
+volumes:
+    postgres_data:
+        driver: local
