@@ -1,2 +1,4 @@
 fastapi==0.111.0
 SQLAlchemy==2.0.30
+uvicorn
+asyncpg
