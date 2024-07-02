@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from .schemas import VerificationEmailSchema
 from .verification import send_verification_in_background
 
-api_router = APIRouter()
+api_router = APIRouter(prefix="/email")
 
 @api_router.post("/send-verification")
 async def send_verification(
