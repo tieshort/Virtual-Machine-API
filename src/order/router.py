@@ -14,7 +14,7 @@ async def create_server(post: UserOrderCreate, session: Session = Depends(get_as
     quiery = insert(UserOrder).values(**post.model_dump())
     await session.execute(quiery)
     await session.commit()
-    return {"status": "succes"}
+    return {"status": "success"}
 
 @router.get("/images")
 async def get_image_templates(session: Session = Depends(get_async_session)):
