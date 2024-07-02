@@ -1,4 +1,5 @@
 from fastapi_mail import ConnectionConfig
+from jinja2 import Environment, PackageLoader, select_autoescape
 from pydantic import EmailStr
 from pydantic_settings import BaseSettings
 
@@ -31,4 +32,9 @@ email_config = ConnectionConfig(
     MAIL_SSL_TLS=__env_vars.EMAIL_SSL_TLS,
     USE_CREDENTIALS=__env_vars.USE_CREDENTIALS,
     VALIDATE_CERTS=__env_vars.VALIDATE_CERTS,
+)
+
+jinja2_env = Environment(
+    loader=PackageLoader("app", "templates"),
+    autoescape=select_autoescape(["html", "xml"]),
 )
