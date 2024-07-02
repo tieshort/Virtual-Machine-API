@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select, insert
+from sqlalchemy import insert, select
 from sqlalchemy.orm import Session
 
-from .schemas import UserOrderCreate, ImageRead, ImageCreate
-from .models import UserOrder, Image
-
 from database import get_async_session
+
+from .models import Image, UserOrder  # type: ignore
+from .schemas import ImageCreate, ImageRead, UserOrderCreate  # type: ignore
 
 router = APIRouter(prefix="/servers")
     
@@ -14,16 +14,16 @@ async def create_server(post: UserOrderCreate, session: Session = Depends(get_as
     quiery = insert(UserOrder).values(**post.model_dump())
     await session.execute(quiery)
     await session.commit()
-    return {"status": "succes"}
+    return {"status": "success"}
 
-@router.get("/images", response_model=list[ImageRead])
+@router.get("/images")
 async def get_image_templates(session: Session = Depends(get_async_session)):
     quiery = select(Image)
     try:
-        result = await session.execute(quiery)
+        result = [tup[0] for tup in (await session.execute(quiery)).all()]
         return {
                 "status": "success",
-                "data": result.all(),
+                "data": result,
                 "details": None
             }
     except Exception:
@@ -37,7 +37,7 @@ async def get_image_templates(session: Session = Depends(get_async_session)):
 async def get_my_images(session: Session = Depends(get_async_session)):
     quiery = select(Image)
     try:
-        result = await session.execute(quiery)
+        result = [tup[0] for tup in (await session.execute(quiery)).all()]
         return {
                 "status": "success",
                 "data": result.all(),
@@ -55,4 +55,4 @@ async def create_image(image: ImageCreate, session: Session = Depends(get_async_
     quiery = insert(Image).values(**image.model_dump())
     await session.execute(quiery)
     await session.commit()
-    return {"status": "succes"}
+    return {"status": "success"}
