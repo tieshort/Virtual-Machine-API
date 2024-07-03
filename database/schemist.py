@@ -40,9 +40,14 @@ class UserOrderCreate(BaseModel):
     cloud_ini: dict = Field(..., example={"cloud": "value1"})
     user_id: int = Field(..., example=1)
 
-    # @field_validator('name', 'configuration','network', 'access', 'cloud_ini',)
-    # def not_empty(cls, value):
-    #     if not value or not value.strip():
-    #         raise ValueError('Field cannot be empty or blank')
-    #     return value
+    @field_validator('name', 'configuration', 'network', 'access', 'cloud_ini')
+    def not_empty(cls, value):
+        if isinstance(value, str):
+            if not value.strip():
+                raise ValueError('Field cannot be empty or blank')
+        elif isinstance(value, dict):
+            for key, val in value.items():
+                if isinstance(val, str) and not val.strip():
+                    raise ValueError(f'Field {key} cannot be empty or blank')
+        return value
 
