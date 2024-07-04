@@ -4,12 +4,12 @@ from sqlalchemy.orm import Session
 
 from database import get_async_session
 
-from .models import Image, UserOrder  # type: ignore
-from .schemas import ImageCreate, ImageRead, UserOrderCreate  # type: ignore
+from .models import Image, UserOrder
+from .schemas import ImageCreate, ImageRead, UserOrderCreate
 
 router = APIRouter(prefix="/servers")
     
-@router.post("")
+@router.post("", status_code=201)
 async def create_server(post: UserOrderCreate, session: Session = Depends(get_async_session)):
     quiery = insert(UserOrder).values(**post.model_dump())
     await session.execute(quiery)
@@ -20,10 +20,10 @@ async def create_server(post: UserOrderCreate, session: Session = Depends(get_as
 async def get_image_templates(session: Session = Depends(get_async_session)):
     quiery = select(Image)
     try:
-        result = [tup[0] for tup in (await session.execute(quiery)).all()]
+        result = await session.execute(quiery)
         return {
                 "status": "success",
-                "data": result,
+                "data": result.scalars().all(),
                 "details": None
             }
     except Exception:
@@ -33,14 +33,14 @@ async def get_image_templates(session: Session = Depends(get_async_session)):
             "details": None
         })
 
-@router.get("/my-images", response_model=list[ImageRead])
+@router.get("/my-images")
 async def get_my_images(session: Session = Depends(get_async_session)):
     quiery = select(Image)
     try:
-        result = [tup[0] for tup in (await session.execute(quiery)).all()]
+        result = await session.execute(quiery)
         return {
                 "status": "success",
-                "data": result.all(),
+                "data": result.scalars().all(),
                 "details": None
             }
     except Exception:
@@ -50,7 +50,7 @@ async def get_my_images(session: Session = Depends(get_async_session)):
             "details": None
         })
 
-@router.post("/my-images/create")
+@router.post("/my-images/create", status_code=201)
 async def create_image(image: ImageCreate, session: Session = Depends(get_async_session)):
     quiery = insert(Image).values(**image.model_dump())
     await session.execute(quiery)
