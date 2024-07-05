@@ -1,23 +1,24 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import insert, select
 from sqlalchemy.orm import Session
+from typing import Annotated
 
 from database import get_async_session
 
 from .models import Image, UserOrder
-from .schemas import ImageCreate, ImageRead, UserOrderCreate
+from .schemas import ImageCreate, UserOrderCreate
 
 router = APIRouter(prefix="/servers")
     
 @router.post("", status_code=201)
-async def create_server(post: UserOrderCreate, session: Session = Depends(get_async_session)):
+async def create_server(post: UserOrderCreate, session: Annotated[Session, Depends(get_async_session)]):
     quiery = insert(UserOrder).values(**post.model_dump())
     await session.execute(quiery)
     await session.commit()
     return {"status": "success"}
 
 @router.get("/images")
-async def get_image_templates(session: Session = Depends(get_async_session)):
+async def get_image_templates(session: Annotated[Session, Depends(get_async_session)]):
     quiery = select(Image)
     try:
         result = await session.execute(quiery)
@@ -34,7 +35,7 @@ async def get_image_templates(session: Session = Depends(get_async_session)):
         })
 
 @router.get("/my-images")
-async def get_my_images(session: Session = Depends(get_async_session)):
+async def get_my_images(session: Annotated[Session, Depends(get_async_session)]):
     quiery = select(Image)
     try:
         result = await session.execute(quiery)
@@ -51,7 +52,7 @@ async def get_my_images(session: Session = Depends(get_async_session)):
         })
 
 @router.post("/my-images/create", status_code=201)
-async def create_image(image: ImageCreate, session: Session = Depends(get_async_session)):
+async def create_image(image: ImageCreate, session: Annotated[Session, Depends(get_async_session)]):
     quiery = insert(Image).values(**image.model_dump())
     await session.execute(quiery)
     await session.commit()
