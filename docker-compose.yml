@@ -16,6 +16,8 @@ services:
         image: backend:latest
         build: .
         container_name: python
+        ports:
+            - 8000:8000
 
 volumes:
     postgres_data:
