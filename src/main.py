@@ -1,12 +1,13 @@
+from contextlib import asynccontextmanager
+
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from order.router import router as order_router
-from order.models import Base
 from database import engine
-
-import uvicorn
-from contextlib import asynccontextmanager
+from email_server import email_router
+from order.models import Base
+from order.router import router as order_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
