@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, status
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 from middleware.auth_middleware import check_auth_header
 
@@ -21,31 +23,43 @@ vm_console_data = {
 }
 
 
-@router.get("/{user_id}/vms", dependencies=[Depends(check_auth_header)], status_code=status.HTTP_200_OK)
+@router.get("/{user_id}/vms", dependencies=[Depends(check_auth_header)])
 async def get_vms(user_id: int):
-    response = str(vm_data)
-    return {
+    data = str(vm_data)
+    response = {
         "status": "success",
-        "data": response,
+        "data": data,
     }
+    return JSONResponse(
+        jsonable_encoder(response), 
+        status_code=status.HTTP_200_OK
+    )
 
 
-@router.get("/{user_id}/vms/{vm_id}/panel/config", dependencies=[Depends(check_auth_header)], status_code=status.HTTP_200_OK)
+@router.get("/{user_id}/vms/{vm_id}/panel/config", dependencies=[Depends(check_auth_header)])
 async def get_panel_config(user_id: int, vm_id: str):
-    response = f"vm_id: {vm_id}, config: {vm_config_data.get(vm_id).get('config')}"
-    return {
+    data = f"vm_id: {vm_id}, config: {vm_config_data.get(vm_id).get('config')}"
+    response = {
         "status": "success",
-        "data": response,
+        "data": data,
     }
+    return JSONResponse(
+        jsonable_encoder(response), 
+        status_code=status.HTTP_200_OK
+    )
 
 
-@router.get("/{user_id}/vms/{vm_id}/panel/console", dependencies=[Depends(check_auth_header)], status_code=status.HTTP_200_OK)
+@router.get("/{user_id}/vms/{vm_id}/panel/console", dependencies=[Depends(check_auth_header)])
 async def get_panel_console(user_id: int, vm_id: str):
-    response = f"vm_id: {vm_id}, url: {vm_console_data.get(vm_id).get('url')}"
-    return {
+    data = f"vm_id: {vm_id}, url: {vm_console_data.get(vm_id).get('url')}"
+    response = {
         "status": "success",
-        "data": response,
+        "data": data,
     }
+    return JSONResponse(
+        jsonable_encoder(response), 
+        status_code=status.HTTP_200_OK
+    )
 
 
 @router.post("/{user_id}/vms/{vm_id}/panel/start_vm", dependencies=[Depends(check_auth_header)])
