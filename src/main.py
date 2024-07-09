@@ -1,12 +1,14 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
-
-from order.router import router as order_router
-from order.models import Base
-from database import engine
+from contextlib import asynccontextmanager
 
 import uvicorn
-from contextlib import asynccontextmanager
+from fastapi import FastAPI
+
+from database import engine
+from order.models import Base
+
+from order.router import router as order_router
+from vm_panel.router import router as vm_panel_router
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -17,9 +19,11 @@ async def lifespan(app: FastAPI):
     await engine.dispose()
     print("Application shutdown complete")
 
+
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(order_router)
+app.include_router(vm_panel_router)
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', reload=True)
+    uvicorn.run("main:app", reload=True)
