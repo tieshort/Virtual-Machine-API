@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field
 
 
-class VerificationEmailSchema(BaseModel):
+class CredentialsEmailSchema(BaseModel):
     email: EmailStr = Field(example="user@imaqliq.ru")
-    order_id: int
+    user_id: int

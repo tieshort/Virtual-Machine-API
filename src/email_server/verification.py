@@ -1,9 +1,13 @@
 from fastapi import BackgroundTasks
 
 from .email import Email
-from .schemas import VerificationEmailSchema
+from .schemas import CredentialsEmailSchema
 
 
-async def send_verification_in_background(background_tasks: BackgroundTasks, email_schema: VerificationEmailSchema):
+async def send_credentials_in_background(
+    background_tasks: BackgroundTasks, email_schema: CredentialsEmailSchema
+):
     mail = Email([email_schema.email])
-    background_tasks.add_task(mail.send_verification_code, "varif url", "user name")  # TODO Генерировать url для верификации, брать из базы данных имя пользователя
+    background_tasks.add_task(
+        mail.send_credentials, "user name", "login", "password"
+    )  # TODO Брать из базы данных логин и пароль по user_id

@@ -25,12 +25,10 @@ class Email:
         fm = FastMail(email_config)
         await fm.send_message(message)
 
-    async def send_verification_code(
-        self, varification_url: str, user_name: str
-    ) -> None:
-        subject = "Your verification code"
-        template = self.get_template(HtmlTemplate.Verification)
+    async def send_credentials(self, user_name: str, login: str, password: str) -> None:
+        subject = "Ваши учетные данные"
+        template = self.get_template(HtmlTemplate.Credentials)
         body = await template.render_async(
-            url=varification_url, first_name=user_name, subject=subject
+            subject=subject, first_name=user_name, login=login, password=password
         )
         await self.send_mail(subject, body)

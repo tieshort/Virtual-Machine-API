@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 
 from database import get_async_session
 
-from .models import Image, UserOrder
-from .schemas import ImageCreate, ImageRead, UserOrderCreate
+from .models import Image, UserOrder  # type: ignore
+from .schemas import ImageCreate, ImageRead, UserOrderCreate  # type: ignore
 
 router = APIRouter(prefix="/servers")
     
