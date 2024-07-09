@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 
 from middleware.auth_middleware import check_auth_header
 
-router = APIRouter(prefix="/{user_id}/vms")
+router = APIRouter()
 
 vm_data = {
     "1": {"name": "test", "status": "active", "ip": "10.0.2.214"},
@@ -20,7 +20,7 @@ vm_console_data = {
     "2": {"url": "<div>some body html for vm2</div>"},
 }
 
-@router.get("", dependencies=[Depends(check_auth_header)])
+@router.get("/{user_id}/vms", dependencies=[Depends(check_auth_header)])
 async def get_vms(user_id: int):
     response = str(vm_data)
     return {
@@ -28,7 +28,7 @@ async def get_vms(user_id: int):
         "data": response,
     }
 
-@router.get("/{vm_id}/panel/config", dependencies=[Depends(check_auth_header)])
+@router.get("/{user_id}/vms/{vm_id}/panel/config", dependencies=[Depends(check_auth_header)])
 async def get_panel_config(user_id: int, vm_id: str):
     response = f"vm_id: {vm_id}, config: {vm_config_data.get(vm_id).get('config')}"
     return {
@@ -36,7 +36,7 @@ async def get_panel_config(user_id: int, vm_id: str):
         "data": response,
     }
 
-@router.get("/{vm_id}/panel/console", dependencies=[Depends(check_auth_header)])
+@router.get("/{user_id}/vms/{vm_id}/panel/console", dependencies=[Depends(check_auth_header)])
 async def get_panel_console(user_id: int, vm_id: str):
     response = f"vm_id: {vm_id}, url: {vm_console_data.get(vm_id).get('url')}"
     return {
@@ -44,14 +44,14 @@ async def get_panel_console(user_id: int, vm_id: str):
         "data": response,
     }
 
-@router.post("/{vm_id}/panel/start_vm", dependencies=[Depends(check_auth_header)])
+@router.post("/{user_id}/vms/{vm_id}/panel/start_vm", dependencies=[Depends(check_auth_header)])
 async def start_vm(user_id: int, vm_id: int):
     pass
 
-@router.post("/{vm_id}/panel/stop_vm", dependencies=[Depends(check_auth_header)])
+@router.post("/{user_id}/vms/{vm_id}/panel/stop_vm", dependencies=[Depends(check_auth_header)])
 async def stop_vm(user_id: int, vm_id: int):
     pass
 
-@router.post("/{vm_id}/panel/restart_vm", dependencies=[Depends(check_auth_header)])
+@router.post("/{user_id}/vms/{vm_id}/panel/restart_vm", dependencies=[Depends(check_auth_header)])
 async def retart_vm(user_id: int, vm_id: int):
     pass
