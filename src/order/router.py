@@ -19,7 +19,9 @@ async def create_server(
     query = insert(UserOrder).values(**post.model_dump())
     await session.execute(query)
     await session.commit()
-    return {"status": "success"}
+    return {
+            "status": "success"
+        }
 
 
 @router.get("/images")
@@ -55,4 +57,6 @@ async def create_image(
     quiery = insert(Image).values(**image.model_dump())
     await session.execute(quiery)
     await session.commit()
-    return {"status": "success"}
+    return {
+            "status": "success"
+        }
