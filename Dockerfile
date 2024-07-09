@@ -19,5 +19,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ .
 COPY postgres.env .
 
-# ENTRYPOINT [ "python", "main.py" ]
 ENTRYPOINT ["fastapi", "run", "main.py"]
