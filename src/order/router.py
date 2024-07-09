@@ -15,7 +15,9 @@ async def create_server(post: UserOrderCreate, session: Annotated[Session, Depen
     quiery = insert(UserOrder).values(**post.model_dump())
     await session.execute(quiery)
     await session.commit()
-    return {"status": "success"}
+    return {
+            "status": "success"
+        }
 
 @router.get("/images")
 async def get_image_templates(session: Annotated[Session, Depends(get_async_session)]):
@@ -56,4 +58,6 @@ async def create_image(image: ImageCreate, session: Annotated[Session, Depends(g
     quiery = insert(Image).values(**image.model_dump())
     await session.execute(quiery)
     await session.commit()
-    return {"status": "success"}
+    return {
+            "status": "success"
+        }
