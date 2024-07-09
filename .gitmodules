@@ -1,0 +1,3 @@
+[submodule "mail_server"]
+	path = mail_server
+	url = https://github.com/jeboehm/docker-mailserver.git

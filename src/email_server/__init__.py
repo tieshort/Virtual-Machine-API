@@ -1,4 +1,4 @@
-__all__ = ["api_router"]
+__all__ = ["email_router"]
 
 
-from .router import api_router
+from .router import email_router

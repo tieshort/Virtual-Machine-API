@@ -35,6 +35,7 @@ email_config = ConnectionConfig(
 )
 
 jinja2_env = Environment(
-    loader=PackageLoader("app", "templates"),
+    loader=PackageLoader("email_server", "templates"),
     autoescape=select_autoescape(["html", "xml"]),
+    enable_async=True,
 )

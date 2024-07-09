@@ -17,9 +17,11 @@ async def lifespan(app: FastAPI):
     await engine.dispose()
     print("Application shutdown complete")
 
+
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(order_router)
+app.include_router(email_router)
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', reload=True)
+    uvicorn.run("main:app", reload=True)

@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 #     poetry install --no-interaction --no-ansi
 
 COPY src/ .
+COPY postgres.env .
+COPY email.env .
 
-EXPOSE 8080
-
-ENTRYPOINT [ "python", "main.py" ]
+ENTRYPOINT [ "fastapi", "run", "main.py" ]

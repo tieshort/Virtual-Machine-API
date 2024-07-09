@@ -8,7 +8,6 @@ from .templates.enum import HtmlTemplate
 
 class Email:
     def __init__(self, emails: list[EmailStr]):
-        self.sender = "Imaqliq <admin@admin.com>"
         self.emails = emails
 
     @staticmethod
