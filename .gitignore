@@ -1,3 +1,4 @@
+*.dev.*
 *.code-workspace
 .vscode
 
@@ -133,7 +134,6 @@ celerybeat.pid
 # Environments
 *.env
 !*.example.*
-postgres.env
 .venv
 env/
 venv/

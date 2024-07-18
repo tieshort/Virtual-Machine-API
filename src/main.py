@@ -4,11 +4,10 @@ import uvicorn
 from fastapi import FastAPI
 
 from database import engine
+from email_server import email_router
 from order.models import Base
-
 from order.router import router as order_router
 from vm_panel.router import router as vm_panel_router
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,6 +22,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(order_router)
+app.include_router(email_router)
 app.include_router(vm_panel_router)
 
 if __name__ == "__main__":
